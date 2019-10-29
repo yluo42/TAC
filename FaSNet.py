@@ -26,7 +26,6 @@ class BF_module(DPRNN_base):
             # input: (B, N, T)
             batch_size, N, seq_length = input.shape
             ch = 1
-            input = input.unsqueeze(1)
         elif self.model_type == 'DPRNN_TAC':
             # input: (B, ch, N, T)
             batch_size, ch, N, seq_length = input.shape
