@@ -72,7 +72,10 @@ def generate_data(output_path='', dataset='adhoc', libri_path='/hdd/data/Librisp
             noise_rir = gpuRIR.simulateRIR(room_size, beta, noise_pos, mic_pos, nb_img, rt60, sr)
             
             # convolve with RIR at different mic
-            nmic = this_config['num_mic']
+            if dataset == 'adhoc':
+                nmic = this_config['num_mic']
+            else:
+                nmic = 6
             for mic in range(nmic):
                 spk1_echoic_sig = signal.fftconvolve(spk1, spk_rir[0][mic])
                 spk2_echoic_sig = signal.fftconvolve(spk2, spk_rir[1][mic])
@@ -102,7 +105,7 @@ def generate_data(output_path='', dataset='adhoc', libri_path='/hdd/data/Librisp
                 mixture += noise
             
                 # save waveforms
-                this_save_dir = os.path.join(save_dir, 'sample'+str(utt+1))
+                this_save_dir = os.path.join(save_dir, str(nmic)+'mic', 'sample'+str(utt+1))
                 if not os.path.exists(this_save_dir):
                     os.makedirs(this_save_dir)
                 sf.write(os.path.join(this_save_dir, 'spk1_mic'+str(mic+1)+'.wav'), spk1_echoic_sig, sr)
