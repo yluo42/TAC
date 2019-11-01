@@ -1,6 +1,6 @@
-# End-to-end Microphone Permutation and Number Invariant Multi-channel Speech Separation
+# Transform-average-concatenate (TAC) for end-to-end microphone permutation and number invariant multi-channel speech separation
 
-This repository provides the model implementation and dataset generation scripts for the paper "End-to-end Microphone Permutation and Number Invariant Multi-channel Speech Separation" by Yi Luo, Zhuo Chen, Nima Mesgarani and Takuya Yoshioka. The paper introduces ***transform-average-concatenate (TAC)***, a simple module to allow end-to-end multi-channel separation systems to be invariant to microphone permutation (indexing) and number. Although designed for ad-hoc array configuration, TAC also provides significant performance improvement in fixed geometry microphone configuration, showing that it can serve as a general design paradigm for end-to-end multi-channel processing systems.
+This repository provides the model implementation and dataset generation scripts for the paper ["End-to-end Microphone Permutation and Number Invariant Multi-channel Speech Separation"](https://arxiv.org/abs/1910.14104) by Yi Luo, Zhuo Chen, Nima Mesgarani and Takuya Yoshioka. The paper introduces ***transform-average-concatenate (TAC)***, a simple module to allow end-to-end multi-channel separation systems to be invariant to microphone permutation (indexing) and number. Although designed for ad-hoc array configuration, TAC also provides significant performance improvement in fixed geometry microphone configuration, showing that it can serve as a general design paradigm for end-to-end multi-channel processing systems.
 
 ## Model
 
@@ -10,7 +10,8 @@ In this paper we make two main modifications to the original FaSNet:
 1) Instead of the original two-stage architecture, we change it into a single-stage architecture.
 2) TAC is applied throughout the filter estimation module to synchronize the information in different microphones and allow the model to perform *global* decision while estimating the filter coeffients.
 
-We show that such modifications lead to significantly better separation performance in both ad-hoc array with varying number of microphones and fixed circular array configurations.
+The figure below shows different designs of FaSNet models.
+![](https://github.com/yluo42/TAC/blob/master/flowchart.png)
 
 The building blocks for the filter estimation modules are based on ***dual-path RNNs (DPRNNs)***, a simple yet effective method for organizing RNN layers to allow successful modeling of extremely long sequential data. For details about DPRNN please refer to ["Dual-path RNN: efficient long sequence modeling for time-domain single-channel speech separation"](https://arxiv.org/abs/1910.06379). The implementation of DPRNN, as well as the combination of DPRNN and TAC, can be found in [*utility/models*](https://github.com/yluo42/TAC/blob/master/utility/models.py).
 
