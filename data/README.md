@@ -19,5 +19,5 @@ The simulated datasets are based on the [Librispeech](http://www.openslr.org/12)
 run `python create_dataset.py --output-path=your_output_path --dataset='adhoc' --libri-path=libri_path --noise-path=noise_path`, where:
 1) *output_path*: the absolute path for saving the output. Default is empty which uses the current directory as output path.
 2) *dataset*: the dataset to generate. It can only be *'adhoc'* or *'fixed'*.
-3) *libri_path*: the absolute path for Librispeech data, i.e. *libri_path*.
-4) *noise_path*: the absolute path for noise data, i.e. *noise_path*.
+3) *libri_path*: the absolute path for Librispeech data.
+4) *noise_path*: the absolute path for noise data.
