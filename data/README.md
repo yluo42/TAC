@@ -3,6 +3,8 @@
 
 The simulated datasets are based on the [Librispeech](http://www.openslr.org/12) corpus and the [100 Nonspeech Sounds](http://web.cse.ohio-state.edu/pnl/corpus/HuNonspeech/HuCorpus.html) corpus.
 
+**Update 2019.11.10:** The configuration files and the data generation script have been updated. Please make sure you are using the most recent files for data generation.
+
 ## Raw data download
 
 1) Download the *train-clean-100*, *dev-clean* and *test-clean* data from Librispeech's website and unzip them into any directory. The absolute path for the directory is denoted as *libri_path*, which should contain 3 subfolders *train-clean-100*, *dev-clean* and *test-clean*.
