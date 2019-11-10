@@ -117,10 +117,10 @@ def generate_data(output_path='', dataset='adhoc', libri_path='/hdd/data/Librisp
                 sf.write(os.path.join(this_save_dir, 'spk2_mic'+str(mic+1)+'.wav'), spk2_echoic_sig, sr)
                 sf.write(os.path.join(this_save_dir, 'mixture_mic'+str(mic+1)+'.wav'), mixture, sr)
                 
-                # print progress
-                if (utt+1) % (len(configs) // 5) == 0:
-                    print("{} configuration, {} set, {:d} out of {:d} utterances generated.".format(dataset, data_type[i],
-                                                                                                    utt+1, len(configs)))
+            # print progress
+            if (utt+1) % (len(configs) // 5) == 0:
+                print("{} configuration, {} set, {:d} out of {:d} utterances generated.".format(dataset, data_type[i],
+                                                                                                utt+1, len(configs)))
 
 
 if __name__ == "__main__":
