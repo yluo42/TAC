@@ -7,7 +7,7 @@ import argparse
 import gpuRIR
 
 # generate audio files
-def generate_data(output_path='', dataset='adhoc', libri_path='/hdd/data/Librispeech/LibriSpeech', noise_path='/hdd/data/Nonspeech'):
+def generate_data(output_path='', dataset='adhoc', libri_path='/home/yi/data/Librispeech', noise_path='/home/yi/data/Nonspeech'):
     assert dataset in ['adhoc', 'fixed'], "dataset can only be adhoc or fixed."
     
     if output_path == '':
@@ -36,9 +36,7 @@ def generate_data(output_path='', dataset='adhoc', libri_path='/hdd/data/Librisp
             spk1, _ = sf.read(os.path.join(libri_path, speakers[0]))
             spk2, _ = sf.read(os.path.join(libri_path, speakers[1]))
             noise, _ = sf.read(os.path.join(noise_path, noise))
-            
-            
-            
+
             # calculate signal length according to overlap ratio
             overlap_ratio = this_config['overlap_ratio']
             actual_len = int(sig_len / (2 - overlap_ratio) * sr)
@@ -83,7 +81,10 @@ def generate_data(output_path='', dataset='adhoc', libri_path='/hdd/data/Librisp
             echoic_spk2 = []
             echoic_mixture = []
             
-            nmic = this_config['num_mic']
+            if dataset == 'adhoc':
+                nmic = this_config['num_mic']
+            else:
+                nmic = 6
             for mic in range(nmic):
                 spk1_echoic_sig = signal.fftconvolve(spk1, spk_rir[0][mic])
                 spk2_echoic_sig = signal.fftconvolve(spk2, spk_rir[1][mic])
