@@ -7,7 +7,7 @@ import argparse
 import gpuRIR
 
 # generate audio files
-def generate_data(output_path='', dataset='adhoc', libri_path='/home/yi/data/Librispeech', noise_path='/home/yi/data/Nonspeech'):
+def generate_data(output_path='', avoid_clipping=0, dataset='adhoc', libri_path='/home/yi/data/Librispeech', noise_path='/home/yi/data/Nonspeech'):
     assert dataset in ['adhoc', 'fixed'], "dataset can only be adhoc or fixed."
     
     if output_path == '':
@@ -110,11 +110,12 @@ def generate_data(output_path='', dataset='adhoc', libri_path='/home/yi/data/Lib
                 # sum up for mixture
                 mixture = spk1_echoic_sig + spk2_echoic_sig + noise_echoic_sig
                 
-                # avoid clipping
-                max_scale = np.max([np.max(np.abs(mixture)), np.max(np.abs(spk1_echoic_sig)), np.max(np.abs(spk2_echoic_sig))])
-                mixture = mixture / max_scale * 0.9
-                spk1_echoic_sig = spk1_echoic_sig / max_scale * 0.9
-                spk2_echoic_sig = spk2_echoic_sig / max_scale * 0.9
+                if avoid_clipping:
+                    # avoid clipping
+                    max_scale = np.max([np.max(np.abs(mixture)), np.max(np.abs(spk1_echoic_sig)), np.max(np.abs(spk2_echoic_sig))])
+                    mixture = mixture / max_scale * 0.9
+                    spk1_echoic_sig = spk1_echoic_sig / max_scale * 0.9
+                    spk2_echoic_sig = spk2_echoic_sig / max_scale * 0.9
             
                 # save waveforms
                 this_save_dir = os.path.join(output_path, 'MC_Libri_'+dataset, data_type[i], str(num_mic)+'mic', 'sample'+str(utt+1))
@@ -134,6 +135,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate multi-channel Librispeech data')
     parser.add_argument('--output-path', metavar='absolute path', required=False, default='',
                         help="The path to the output directory. Default is the current directory.")
+    parser.add_argument('--avoid-clipping', metavar='avoid clipping', required=False, default=0,
+                        help="Whether to avoid clipping when saving the waveforms. 0: no clipping. 1: clipping.")
     parser.add_argument('--dataset', metavar='dataset type', required=True,
                         help="The type of dataset to generate. Can only be 'adhoc' or 'fixed'.")
     parser.add_argument('--libri-path', metavar='absolute path', required=True,
