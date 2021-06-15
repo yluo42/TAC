@@ -109,6 +109,12 @@ def generate_data(output_path='', dataset='adhoc', libri_path='/home/yi/data/Lib
                 
                 # sum up for mixture
                 mixture = spk1_echoic_sig + spk2_echoic_sig + noise_echoic_sig
+                
+                # avoid clipping
+                max_scale = np.max([np.max(np.abs(mixture)), np.max(np.abs(spk1_echoic_sig)), np.max(np.abs(spk2_echoic_sig))])
+                mixture = mixture / max_scale * 0.9
+                spk1_echoic_sig = spk1_echoic_sig / max_scale * 0.9
+                spk2_echoic_sig = spk2_echoic_sig / max_scale * 0.9
             
                 # save waveforms
                 this_save_dir = os.path.join(output_path, 'MC_Libri_'+dataset, data_type[i], str(num_mic)+'mic', 'sample'+str(utt+1))
