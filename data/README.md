@@ -20,8 +20,9 @@ The simulated datasets are based on the [Librispeech](http://www.openslr.org/12)
 
 ## Dataset generation
 
-run `python create_dataset.py --output-path=your_output_path --dataset='adhoc' --libri-path=libri_path --noise-path=noise_path`, where:
+run `python create_dataset.py --output-path=your_output_path --avoid-clipping=0 --dataset='adhoc' --libri-path=libri_path --noise-path=noise_path`, where:
 1) *output_path*: the absolute path for saving the output. Default is empty which uses the current directory as output path.
-2) *dataset*: the dataset to generate. It can only be *'adhoc'* or *'fixed'*.
-3) *libri_path*: the absolute path for Librispeech data.
-4) *noise_path*: the absolute path for noise data.
+2) *avoid_clipping*: whether to avoid clipping when saving the waveforms to files. 0 (default): keep the original scale. 1: avoid clipping.
+3) *dataset*: the dataset to generate. It can only be *'adhoc'* or *'fixed'*.
+4) *libri_path*: the absolute path for Librispeech data.
+5) *noise_path*: the absolute path for noise data.
